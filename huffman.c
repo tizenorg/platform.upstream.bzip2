@@ -170,13 +170,16 @@ void BZ2_hbAssignCodes ( Int32 *code,
 void BZ2_hbCreateDecodeTables ( Int32 *limit,
                                 Int32 *base,
                                 Int32 *perm,
+                                Int16 *hufcode,
                                 UChar *length,
                                 Int32 minLen,
                                 Int32 maxLen,
                                 Int32 alphaSize )
 {
-   Int32 pp, i, j, vec;
+   Int32 pp, i, j, vec, k, vec2;
 
+   for (i = 0; i < (1 << HUFCODE_SIZE); i++)
+      hufcode[i] = 0;
    pp = 0;
    for (i = minLen; i <= maxLen; i++)
       for (j = 0; j < alphaSize; j++)
@@ -187,16 +190,28 @@ void BZ2_hbCreateDecodeTables ( Int32 *limit,
 
    for (i = 1; i < BZ_MAX_CODE_LEN; i++) base[i] += base[i-1];
 
-   for (i = 0; i < BZ_MAX_CODE_LEN; i++) limit[i] = 0;
+   for (i = 0; i < BZ_MAX_CODE_LEN; i++) limit[i] = -1;
    vec = 0;
 
    for (i = minLen; i <= maxLen; i++) {
+      if (i <= HUFCODE_SIZE) {
+         for (j = base[i]; j < base[i + 1]; j++) {
+            vec2 = (vec + j - base[i]) << (HUFCODE_SIZE - i);
+            k = (1 << (HUFCODE_SIZE - i));
+            if (vec2 + k > (1 << HUFCODE_SIZE))
+                k = (1 << HUFCODE_SIZE) - vec2;
+            for (; --k >= 0; vec2++) 
+               hufcode[vec2] = perm[j] | 512 | (HUFCODE_SIZE - i) << 10;
+         }
+      }
       vec += (base[i+1] - base[i]);
       limit[i] = vec-1;
       vec <<= 1;
    }
    for (i = minLen + 1; i <= maxLen; i++)
       base[i] = ((limit[i-1] + 1) << 1) - base[i];
+   limit[maxLen + 1] = 0x7fffffff;      /* make it terminate */
+   base[maxLen + 1] = 0;
 }
 
 

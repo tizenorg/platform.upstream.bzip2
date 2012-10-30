@@ -340,6 +340,7 @@ BZ2_hbMakeCodeLengths ( UChar*, Int32*, Int32, Int32 );
 #define MTFA_SIZE 4096
 #define MTFL_SIZE 16
 
+#define HUFCODE_SIZE 10
 
 
 /*-- Structure holding all the decompression-side stuff. --*/
@@ -407,6 +408,7 @@ typedef
       Int32    base   [BZ_N_GROUPS][BZ_MAX_ALPHA_SIZE];
       Int32    perm   [BZ_N_GROUPS][BZ_MAX_ALPHA_SIZE];
       Int32    minLens[BZ_N_GROUPS];
+      Int16    hufcode[BZ_N_GROUPS][1 << HUFCODE_SIZE];
 
       /* save area for scalars in the main decompress code */
       Int32    save_i;
@@ -433,6 +435,7 @@ typedef
       Int32*   save_gLimit;
       Int32*   save_gBase;
       Int32*   save_gPerm;
+      Int16*   save_gHufCode;
 
    }
    DState;
@@ -488,8 +491,8 @@ extern Int32
 BZ2_decompress ( DState* );
 
 extern void 
-BZ2_hbCreateDecodeTables ( Int32*, Int32*, Int32*, UChar*,
-                           Int32,  Int32, Int32 );
+BZ2_hbCreateDecodeTables ( Int32*, Int32*, Int32*, Int16 *,
+                           UChar*, Int32,  Int32, Int32 );
 
 
 #endif
