@@ -1414,7 +1414,15 @@ BZFILE * bzopen_or_bzdopen
       }
       mode++;
    }
-   strcat(mode2, writing ? "w" : "r" );
+     
+   /* open fds with O_CLOEXEC _only_ when we are the initiator
+    * aka. bzopen() but not bzdopen() */
+   if(open_mode == 0) {
+        strcat (mode2, writing ? "we" : "re" );
+   } else {
+        strcat(mode2, writing ? "w" : "r" );
+   }
+
    strcat(mode2,"b");   /* binary mode */
 
    if (open_mode==0) {
