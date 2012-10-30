@@ -17,7 +17,8 @@ in the file LICENSE.
 
 Complete documentation is available in Postscript form (manual.ps),
 PDF (manual.pdf) or html (manual.html).  A plain-text version of the
-manual page is available as bzip2.txt.
+manual page is available as bzip2.txt. bzip2 documentation is
+available in separate bzip2-doc package.
 
 
 HOW TO BUILD -- UNIX
