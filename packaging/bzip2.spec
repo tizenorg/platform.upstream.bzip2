@@ -8,7 +8,7 @@ BuildRequires:  pkg-config
 Url:            http://www.bzip.org/
 Summary:        A Program for Compressing Files
 License:        BSD-3-Clause
-Group:          Productivity/Archiving/Compression
+Group:          Base/Tools
 Source:         bzip2-%{version}.tar.gz
 Source1:        bznew.gz
 Source2:        bznew.1.gz
@@ -21,14 +21,15 @@ The bzip2 program is a very powerful program for compressing files.
 
 %package -n libbz2
 Summary:        The bzip2 runtime library
-Group:          Productivity/Archiving/Compression
+Group:          System/Libraries
+Provides:       bzip2-libs
 
 %description -n libbz2
 The bzip2 runtime library
 
 %package devel
 Summary:        The bzip2 runtime library development files
-Group:          Development/Libraries/Other
+Group:          Development/Libraries
 Requires:       libbz2 = %{version} glibc-devel
 
 %description devel
@@ -81,11 +82,11 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1
 
 %files -n libbz2
 %defattr(-,root,root)
+%license LICENSE
 %{_libdir}/libbz2.so.1
 %{_libdir}/libbz2.so.1.*
 
 %files devel
-%doc LICENSE
 %{_includedir}/bzlib.h
 %{_libdir}/libbz2.so
 %{_libdir}/pkgconfig/bzip2.pc
