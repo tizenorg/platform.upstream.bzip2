@@ -14,6 +14,7 @@ Source1:        bznew.gz
 Source2:        bznew.1.gz
 Source3:        baselibs.conf
 Source100:      rpmlintrc
+Source1001: 	bzip2.manifest
 
 %description
 The bzip2 program is a very powerful program for compressing files.
@@ -37,6 +38,7 @@ The bzip2 runtime library development files.
 
 %prep
 %setup -q
+cp %{SOURCE1001} .
 
 %build
 profile_bzip2()
@@ -77,16 +79,19 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1
 %docs_package
 
 %files
+%manifest %{name}.manifest
 %defattr(-,root,root)
 %{_bindir}/*
 
 %files -n libbz2
+%manifest %{name}.manifest
 %defattr(-,root,root)
 %license LICENSE
 %{_libdir}/libbz2.so.1
 %{_libdir}/libbz2.so.1.*
 
 %files devel
+%manifest %{name}.manifest
 %{_includedir}/bzlib.h
 %{_libdir}/libbz2.so
 %{_libdir}/pkgconfig/bzip2.pc
