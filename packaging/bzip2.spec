@@ -41,6 +41,7 @@ The bzip2 runtime library development files.
 cp %{SOURCE1001} .
 
 %build
+export CFLAGS+=" -fvisibility=hidden"
 profile_bzip2()
 {
     tmpfile=$(mktemp)
@@ -51,7 +52,7 @@ profile_bzip2()
 }
 autoreconf -fiv
 %if %{do_profiling}
-export CFLAGS="$RPM_OPT_FLAGS %{cflags_profile_generate}"
+export CFLAGS="$RPM_OPT_FLAGS %{cflags_profile_generate} -fvisibility=hidden"
 %endif
 %configure --with-pic --disable-static
 %if %{do_profiling}
@@ -61,7 +62,7 @@ mkdir .libs.save
 mv .libs/*.gcda .libs.save/
 make clean
 mv .libs.save .libs
-export CFLAGS="$RPM_OPT_FLAGS %{cflags_profile_feedback}"
+export CFLAGS="$RPM_OPT_FLAGS %{cflags_profile_feedback} -fvisibility=hidden"
 %configure --with-pic --disable-static
 %endif
 make %{?_smp_mflags}
