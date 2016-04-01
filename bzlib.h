@@ -99,33 +99,33 @@ typedef
 
 /*-- Core (low-level) library functions --*/
 
-BZ_EXTERN int BZ_API(BZ2_bzCompressInit) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN int BZ_API(BZ2_bzCompressInit) ( 
       bz_stream* strm, 
       int        blockSize100k, 
       int        verbosity, 
       int        workFactor 
    );
 
-BZ_EXTERN int BZ_API(BZ2_bzCompress) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN int BZ_API(BZ2_bzCompress) ( 
       bz_stream* strm, 
       int action 
    );
 
-BZ_EXTERN int BZ_API(BZ2_bzCompressEnd) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN int BZ_API(BZ2_bzCompressEnd) ( 
       bz_stream* strm 
    );
 
-BZ_EXTERN int BZ_API(BZ2_bzDecompressInit) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN int BZ_API(BZ2_bzDecompressInit) ( 
       bz_stream *strm, 
       int       verbosity, 
       int       small
    );
 
-BZ_EXTERN int BZ_API(BZ2_bzDecompress) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN int BZ_API(BZ2_bzDecompress) ( 
       bz_stream* strm 
    );
 
-BZ_EXTERN int BZ_API(BZ2_bzDecompressEnd) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN int BZ_API(BZ2_bzDecompressEnd) ( 
       bz_stream *strm 
    );
 
@@ -138,7 +138,7 @@ BZ_EXTERN int BZ_API(BZ2_bzDecompressEnd) (
 
 typedef void BZFILE;
 
-BZ_EXTERN BZFILE* BZ_API(BZ2_bzReadOpen) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN BZFILE* BZ_API(BZ2_bzReadOpen) ( 
       int*  bzerror,   
       FILE* f, 
       int   verbosity, 
@@ -147,26 +147,26 @@ BZ_EXTERN BZFILE* BZ_API(BZ2_bzReadOpen) (
       int   nUnused 
    );
 
-BZ_EXTERN void BZ_API(BZ2_bzReadClose) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN void BZ_API(BZ2_bzReadClose) ( 
       int*    bzerror, 
       BZFILE* b 
    );
 
-BZ_EXTERN void BZ_API(BZ2_bzReadGetUnused) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN void BZ_API(BZ2_bzReadGetUnused) ( 
       int*    bzerror, 
       BZFILE* b, 
       void**  unused,  
       int*    nUnused 
    );
 
-BZ_EXTERN int BZ_API(BZ2_bzRead) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN int BZ_API(BZ2_bzRead) ( 
       int*    bzerror, 
       BZFILE* b, 
       void*   buf, 
       int     len 
    );
 
-BZ_EXTERN BZFILE* BZ_API(BZ2_bzWriteOpen) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN BZFILE* BZ_API(BZ2_bzWriteOpen) ( 
       int*  bzerror,      
       FILE* f, 
       int   blockSize100k, 
@@ -174,14 +174,14 @@ BZ_EXTERN BZFILE* BZ_API(BZ2_bzWriteOpen) (
       int   workFactor 
    );
 
-BZ_EXTERN void BZ_API(BZ2_bzWrite) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN void BZ_API(BZ2_bzWrite) ( 
       int*    bzerror, 
       BZFILE* b, 
       void*   buf, 
       int     len 
    );
 
-BZ_EXTERN void BZ_API(BZ2_bzWriteClose) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN void BZ_API(BZ2_bzWriteClose) ( 
       int*          bzerror, 
       BZFILE*       b, 
       int           abandon, 
@@ -189,7 +189,7 @@ BZ_EXTERN void BZ_API(BZ2_bzWriteClose) (
       unsigned int* nbytes_out 
    );
 
-BZ_EXTERN void BZ_API(BZ2_bzWriteClose64) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN void BZ_API(BZ2_bzWriteClose64) ( 
       int*          bzerror, 
       BZFILE*       b, 
       int           abandon, 
@@ -203,7 +203,7 @@ BZ_EXTERN void BZ_API(BZ2_bzWriteClose64) (
 
 /*-- Utility functions --*/
 
-BZ_EXTERN int BZ_API(BZ2_bzBuffToBuffCompress) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN int BZ_API(BZ2_bzBuffToBuffCompress) ( 
       char*         dest, 
       unsigned int* destLen,
       char*         source, 
@@ -213,7 +213,7 @@ BZ_EXTERN int BZ_API(BZ2_bzBuffToBuffCompress) (
       int           workFactor 
    );
 
-BZ_EXTERN int BZ_API(BZ2_bzBuffToBuffDecompress) ( 
+__attribute__ ((visibility ("default"))) BZ_EXTERN int BZ_API(BZ2_bzBuffToBuffDecompress) ( 
       char*         dest, 
       unsigned int* destLen,
       char*         source, 
@@ -232,42 +232,42 @@ BZ_EXTERN int BZ_API(BZ2_bzBuffToBuffDecompress) (
    If this code breaks, please contact both Yoshioka and me.
 --*/
 
-BZ_EXTERN const char * BZ_API(BZ2_bzlibVersion) (
+__attribute__ ((visibility ("default"))) BZ_EXTERN const char * BZ_API(BZ2_bzlibVersion) (
       void
    );
 
 #ifndef BZ_NO_STDIO
-BZ_EXTERN BZFILE * BZ_API(BZ2_bzopen) (
+__attribute__ ((visibility ("default"))) BZ_EXTERN BZFILE * BZ_API(BZ2_bzopen) (
       const char *path,
       const char *mode
    );
 
-BZ_EXTERN BZFILE * BZ_API(BZ2_bzdopen) (
+__attribute__ ((visibility ("default"))) BZ_EXTERN BZFILE * BZ_API(BZ2_bzdopen) (
       int        fd,
       const char *mode
    );
          
-BZ_EXTERN int BZ_API(BZ2_bzread) (
+__attribute__ ((visibility ("default"))) BZ_EXTERN int BZ_API(BZ2_bzread) (
       BZFILE* b, 
       void* buf, 
       int len 
    );
 
-BZ_EXTERN int BZ_API(BZ2_bzwrite) (
+__attribute__ ((visibility ("default"))) BZ_EXTERN int BZ_API(BZ2_bzwrite) (
       BZFILE* b, 
       void*   buf, 
       int     len 
    );
 
-BZ_EXTERN int BZ_API(BZ2_bzflush) (
+__attribute__ ((visibility ("default"))) BZ_EXTERN int BZ_API(BZ2_bzflush) (
       BZFILE* b
    );
 
-BZ_EXTERN void BZ_API(BZ2_bzclose) (
+__attribute__ ((visibility ("default"))) BZ_EXTERN void BZ_API(BZ2_bzclose) (
       BZFILE* b
    );
 
-BZ_EXTERN const char * BZ_API(BZ2_bzerror) (
+__attribute__ ((visibility ("default"))) BZ_EXTERN const char * BZ_API(BZ2_bzerror) (
       BZFILE *b, 
       int    *errnum
    );

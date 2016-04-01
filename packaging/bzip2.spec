@@ -41,6 +41,9 @@ The bzip2 runtime library development files.
 cp %{SOURCE1001} .
 
 %build
+export CFLAGS+=" -fvisibility=hidden"
+  export CXXFLAGS+=" -fvisibility=hidden"
+  
 profile_bzip2()
 {
     tmpfile=$(mktemp)
